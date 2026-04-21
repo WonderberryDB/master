@@ -17,14 +17,12 @@
             <xpath expr="//field[@name='valuation_adjustment_lines']//field[@name='additional_landed_cost']" position="before">
                 <field name="customs_duty_rate"
                        string="Duty %"
-                       widget="percentage"
-                       optional="show"/>
+                       widget="percentage"/>
                 <field name="customs_duty_amount"
                        string="Duty Amt"
                        widget="monetary"
                        options="{'currency_field': 'currency_id'}"
-                       readonly="1"
-                       optional="show"/>
+                       readonly="1"/>
                 <field name="currency_id" column_invisible="1"/>
             </xpath>
 

@@ -9,7 +9,7 @@
         <field name="arch" type="xml">
             <xpath expr="//sheet" position="inside">
                 <group string="Customs Duty">
-                    <field name="customs_duty_rate" widget="percentage"/>
+                    <field name="customs_duty_rate" string="Default Duty Rate (%)"/>
                 </group>
             </xpath>
         </field>
@@ -25,13 +25,12 @@
                 <group string="Customs Duty">
                     <field name="is_dutiable"/>
                     <field name="customs_duty_rate"
-                           widget="percentage"
+                           string="Duty Rate (%)"
                            invisible="not is_dutiable"/>
                     <field name="effective_duty_rate"
-                           widget="percentage"
+                           string="Effective Rate (%)"
                            readonly="1"
-                           invisible="not is_dutiable"
-                           string="Effective Rate"/>
+                           invisible="not is_dutiable"/>
                 </group>
             </xpath>
         </field>
