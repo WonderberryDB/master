@@ -4,7 +4,7 @@
     <record id="view_stock_landed_cost_form_duty" model="ir.ui.view">
         <field name="name">stock.landed.cost.form.duty</field>
         <field name="model">stock.landed.cost</field>
-        <field name="inherit_id" ref="stock_landed_costs.view_stock_landed_cost_form2"/>
+        <field name="inherit_id" ref="stock_landed_costs.view_stock_landed_cost_form"/>
         <field name="arch" type="xml">
 
             <!--
@@ -14,7 +14,7 @@
                   - Duty Amt     (computed, read-only)
                 right before the existing "Additional Landed Cost" column.
             -->
-            <xpath expr="//field[@name='additional_landed_cost']" position="before">
+            <xpath expr="//field[@name='valuation_adjustment_lines']//field[@name='additional_landed_cost']" position="before">
                 <field name="customs_duty_rate"
                        string="Duty %"
                        widget="percentage"
@@ -29,7 +29,7 @@
             </xpath>
 
             <!-- Total duty line below the valuation adjustment table -->
-            <xpath expr="//field[@name='valuation_adjustment_ids']" position="after">
+            <xpath expr="//field[@name='valuation_adjustment_lines']" position="after">
                 <group class="oe_subtotal_footer" col="2">
                     <field name="total_customs_duty"
                            string="Total Customs Duty"

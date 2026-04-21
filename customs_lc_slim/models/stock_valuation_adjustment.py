@@ -70,11 +70,11 @@ class StockLandedCost(models.Model):
         currency_field='currency_id',
     )
 
-    @api.depends('valuation_adjustment_ids.customs_duty_amount')
+    @api.depends('valuation_adjustment_lines.customs_duty_amount')
     def _compute_total_customs_duty(self):
         for lc in self:
             lc.total_customs_duty = sum(
-                lc.valuation_adjustment_ids.mapped('customs_duty_amount')
+                lc.valuation_adjustment_lines.mapped('customs_duty_amount')
             )
 
     def button_validate(self):
@@ -83,7 +83,7 @@ class StockLandedCost(models.Model):
         for any lines that haven't been manually set.
         """
         for lc in self:
-            for line in lc.valuation_adjustment_ids:
+            for line in lc.valuation_adjustment_lines:
                 if line.customs_duty_rate == 0 and line.product_id:
                     tmpl = line.product_id.product_tmpl_id
                     if tmpl.is_dutiable and tmpl.effective_duty_rate > 0:
