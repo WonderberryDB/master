@@ -4,6 +4,7 @@
     'version': '19.0.1.0.0',
     'category': 'Inventory/Inventory',
     'summary': 'Per-product duty % on landed cost valuation lines — inline, no extra tabs',
+    'author': 'Wonderberry',
     'depends': ['stock_landed_costs'],
     'data': [
         'security/ir.model.access.csv',
