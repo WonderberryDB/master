@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_stock_landed_cost_form_duty" model="ir.ui.view">
+        <field name="name">stock.landed.cost.form.duty</field>
+        <field name="model">stock.landed.cost</field>
+        <field name="inherit_id" ref="stock_landed_costs.view_stock_landed_cost_form2"/>
+        <field name="arch" type="xml">
+
+            <!--
+                The Valuation Adjustments tab contains a tree of
+                stock.valuation.adjustment.lines. We inject two columns:
+                  - Duty %       (editable — overrides product default)
+                  - Duty Amt     (computed, read-only)
+                right before the existing "Additional Landed Cost" column.
+            -->
+            <xpath expr="//field[@name='additional_landed_cost']" position="before">
+                <field name="customs_duty_rate"
+                       string="Duty %"
+                       widget="percentage"
+                       optional="show"/>
+                <field name="customs_duty_amount"
+                       string="Duty Amt"
+                       widget="monetary"
+                       options="{'currency_field': 'currency_id'}"
+                       readonly="1"
+                       optional="show"/>
+                <field name="currency_id" column_invisible="1"/>
+            </xpath>
+
+            <!-- Total duty line below the valuation adjustment table -->
+            <xpath expr="//field[@name='valuation_adjustment_ids']" position="after">
+                <group class="oe_subtotal_footer" col="2">
+                    <field name="total_customs_duty"
+                           string="Total Customs Duty"
+                           widget="monetary"
+                           readonly="1"/>
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

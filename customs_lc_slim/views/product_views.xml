@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Product Category: one field -->
+    <record id="view_product_category_form_duty" model="ir.ui.view">
+        <field name="name">product.category.form.duty</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="Customs Duty">
+                    <field name="customs_duty_rate" widget="percentage"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Product Template: two fields in Purchase tab -->
+    <record id="view_product_template_form_duty" model="ir.ui.view">
+        <field name="name">product.template.form.duty</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='purchase']" position="inside">
+                <group string="Customs Duty">
+                    <field name="is_dutiable"/>
+                    <field name="customs_duty_rate"
+                           widget="percentage"
+                           invisible="not is_dutiable"/>
+                    <field name="effective_duty_rate"
+                           widget="percentage"
+                           readonly="1"
+                           invisible="not is_dutiable"
+                           string="Effective Rate"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
