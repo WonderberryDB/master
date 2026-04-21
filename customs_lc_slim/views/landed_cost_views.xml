@@ -14,16 +14,21 @@
                   - Duty Amt     (computed, read-only)
                 right before the existing "Additional Landed Cost" column.
             -->
-            <xpath expr="//field[@name='valuation_adjustment_lines']//field[@name='additional_landed_cost']" position="before">
+            <!-- Add duty columns in the list view -->
+            <xpath expr="//field[@name='valuation_adjustment_lines']/list/field[@name='additional_landed_cost']" position="before">
                 <field name="customs_duty_rate"
-                       string="Duty %"
-                       widget="percentage"/>
+                       string="Duty %"/>
                 <field name="customs_duty_amount"
                        string="Duty Amt"
                        widget="monetary"
                        options="{'currency_field': 'currency_id'}"
                        readonly="1"/>
-                <field name="currency_id" column_invisible="1"/>
+            </xpath>
+
+            <!-- Add duty fields in the form popup too -->
+            <xpath expr="//field[@name='valuation_adjustment_lines']/form//field[@name='additional_landed_cost']" position="before">
+                <field name="customs_duty_rate" string="Duty %"/>
+                <field name="customs_duty_amount" string="Duty Amt" readonly="1"/>
             </xpath>
 
             <!-- Total duty line below the valuation adjustment table -->
