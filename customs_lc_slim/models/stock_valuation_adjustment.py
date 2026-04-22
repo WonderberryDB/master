@@ -51,14 +51,14 @@ class AdjustmentLines(models.Model):
         else:
             self.customs_duty_rate = 0.0
 
+    @api.depends('former_cost', 'additional_landed_cost', 'customs_duty_amount')
+    def _compute_final_cost(self):
+        for line in self:
+            line.final_cost = line.former_cost + line.additional_landed_cost + line.customs_duty_amount
+
     def _get_final_cost(self):
-        """
-        Override: final cost = standard allocated cost + duty amount.
-        Called by Odoo's valuation engine when posting journal entries.
-        """
         self.ensure_one()
-        base = super()._get_final_cost()
-        return base + self.customs_duty_amount
+        return self.former_cost + self.additional_landed_cost + self.customs_duty_amount
 
 
 class StockLandedCost(models.Model):
