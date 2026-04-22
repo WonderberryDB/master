@@ -14,15 +14,25 @@
                   - Duty Amt     (computed, read-only)
                 right before the existing "Additional Landed Cost" column.
             -->
-            <!-- Add duty columns in the list view -->
-            <xpath expr="//field[@name='valuation_adjustment_lines']/list/field[@name='additional_landed_cost']" position="before">
-                <field name="customs_duty_rate"
-                       string="Duty %"/>
-                <field name="customs_duty_amount"
-                       string="Duty Amt"
-                       widget="monetary"
-                       options="{'currency_field': 'currency_id'}"
-                       readonly="1"/>
+            <!-- Replace the entire list to control column order -->
+            <xpath expr="//field[@name='valuation_adjustment_lines']/list" position="replace">
+                <list string="Valuation Adjustments" editable="bottom" create="0">
+                    <field name="cost_line_id" readonly="1"/>
+                    <field name="product_id" readonly="1"/>
+                    <field name="weight" readonly="1" optional="hide"/>
+                    <field name="volume" readonly="1" optional="hide"/>
+                    <field name="quantity" readonly="1"/>
+                    <field name="currency_id" column_invisible="True"/>
+                    <field name="former_cost" readonly="1"/>
+                    <field name="additional_landed_cost" readonly="1"/>
+                    <field name="customs_duty_rate" string="Duty %"/>
+                    <field name="customs_duty_amount"
+                           string="Duty Amt"
+                           widget="monetary"
+                           options="{'currency_field': 'currency_id'}"
+                           readonly="1"/>
+                    <field name="final_cost" readonly="1"/>
+                </list>
             </xpath>
 
             <!-- Add duty fields in the form popup too -->
